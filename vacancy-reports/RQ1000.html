@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Vacancy Screening Report — Business Analyst (RQ1000)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --color-navy:#0f172a; --color-navy-mid:#1e293b; --color-navy-light:#334155;
+    --color-bg:#f1f5f9; --color-surface:#ffffff; --color-border:#e2e8f0;
+    --color-text-primary:#0f172a; --color-text-secondary:#475569; --color-text-muted:#94a3b8; --color-text-white:#ffffff;
+    --color-invite:#22c55e; --color-shortlist:#6366f1; --color-maybe:#f59e0b; --color-reject:#ef4444; --color-cannot:#6b7280;
+    --color-bar-high:#22c55e; --color-bar-mid:#f59e0b; --color-bar-low:#ef4444;
+    --color-badge-green-bg:#dcfce7; --color-badge-green-txt:#166534;
+    --color-badge-amber-bg:#fef3c7; --color-badge-amber-txt:#92400e;
+    --color-badge-red-bg:#fee2e2; --color-badge-red-txt:#991b1b;
+    --color-badge-gray-bg:#f1f5f9; --color-badge-gray-txt:#475569;
+    --color-badge-purple-bg:#ede9fe; --color-badge-purple-txt:#4338ca;
+  }
+  *,*::before,*::after{box-sizing:border-box;}
+  body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:14px;line-height:1.6;color:var(--color-text-primary);background:var(--color-bg);margin:0;padding:0;}
+  h1{font-size:1.5rem;font-weight:700;margin:0;} h2{font-size:1.1rem;font-weight:600;margin:0 0 1rem;} h3{font-size:.9rem;font-weight:600;margin:0;} p{margin:0 0 .5rem;}
+  .page-shell{display:flex;min-height:100vh;}
+  .sidebar{width:220px;min-width:220px;background:var(--color-navy);display:flex;flex-direction:column;position:fixed;top:0;left:0;height:100vh;overflow-y:auto;z-index:100;}
+  .sidebar-logo{padding:1.5rem 1.25rem 1rem;border-bottom:1px solid var(--color-navy-light);}
+  .sidebar-logo .logo-text{color:var(--color-text-white);font-size:1rem;font-weight:700;display:flex;align-items:center;gap:.5rem;}
+  .sidebar-logo .logo-dot{width:8px;height:8px;border-radius:2px;background:#14b8a6;display:inline-block;flex-shrink:0;}
+  .sidebar-nav{flex:1;padding:.75rem 0;}
+  .nav-item{display:flex;align-items:center;gap:.625rem;padding:.625rem 1.25rem;color:#94a3b8;font-size:.8125rem;font-weight:500;cursor:pointer;border-left:3px solid transparent;text-decoration:none;}
+  .nav-item:hover{background:var(--color-navy-mid);color:#cbd5e1;}
+  .nav-item.active{background:var(--color-navy-mid);color:var(--color-text-white);border-left-color:#14b8a6;font-weight:600;}
+  .nav-item .nav-icon{font-size:.875rem;width:16px;text-align:center;opacity:.8;}
+  .sidebar-profile{padding:1rem 1.25rem;border-top:1px solid var(--color-navy-light);display:flex;align-items:center;gap:.625rem;}
+  .profile-avatar{width:32px;height:32px;border-radius:50%;background:#14b8a6;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.75rem;font-weight:700;flex-shrink:0;}
+  .profile-info{min-width:0;}
+  .profile-info .profile-name{color:#e2e8f0;font-size:.75rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .profile-info .profile-role{color:#64748b;font-size:.6875rem;}
+  .main-content{margin-left:220px;flex:1;min-height:100vh;background:var(--color-bg);}
+  .report-header{background:var(--color-surface);border-bottom:1px solid var(--color-border);padding:1.25rem 2rem;display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;}
+  .header-left .report-title{font-size:1.375rem;font-weight:700;margin:0 0 .25rem;}
+  .header-left .candidate-name{font-size:1rem;font-weight:600;color:#334155;margin:0 0 .25rem;}
+  .header-left .header-meta{font-size:.75rem;color:var(--color-text-muted);margin:.1rem 0;}
+  .header-left .header-meta span{margin-right:1.25rem;}
+  .header-actions{display:flex;gap:.5rem;align-items:center;flex-shrink:0;padding-top:.25rem;}
+  .btn{padding:.5rem 1rem;border-radius:6px;font-size:.8125rem;font-weight:600;cursor:pointer;border:none;}
+  .btn-outline{background:transparent;border:1.5px solid var(--color-border);color:var(--color-text-secondary);}
+  .btn-primary{background:#0ea5e9;color:#fff;}
+  .content-sections{padding:1.5rem 2rem 2rem;display:flex;flex-direction:column;gap:1.25rem;}
+  .view{display:none;flex-direction:column;gap:1.25rem;}
+  .view.active{display:flex;}
+  .view-title{font-size:1.05rem;font-weight:700;color:var(--color-text-primary);margin:.25rem 0 .25rem;}
+  .card{background:var(--color-surface);border:1px solid var(--color-border);border-radius:10px;padding:1.25rem 1.5rem;box-shadow:0 1px 3px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04);}
+  .card-title{font-size:.9375rem;font-weight:600;margin:0 0 1rem;padding-bottom:.625rem;border-bottom:1px solid var(--color-border);display:flex;align-items:center;gap:.5rem;}
+  .kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;}
+  .kpi-card{background:var(--color-surface);border:1px solid var(--color-border);border-radius:10px;padding:1.25rem 1.25rem 1rem;box-shadow:0 1px 3px rgba(0,0,0,.06);display:flex;flex-direction:column;gap:.5rem;}
+  .kpi-label{font-size:.75rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--color-text-muted);}
+  .kpi-value{font-size:1.5rem;font-weight:700;line-height:1.2;}
+  .score-bar-container{margin-top:.375rem;height:5px;background:var(--color-border);border-radius:999px;overflow:hidden;}
+  .score-bar-fill{height:100%;border-radius:999px;}
+  .badge{display:inline-flex;align-items:center;padding:.2rem .6rem;border-radius:999px;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;}
+  .badge-green{background:var(--color-badge-green-bg);color:var(--color-badge-green-txt);}
+  .badge-amber{background:var(--color-badge-amber-bg);color:var(--color-badge-amber-txt);}
+  .badge-red{background:var(--color-badge-red-bg);color:var(--color-badge-red-txt);}
+  .badge-gray{background:var(--color-badge-gray-bg);color:var(--color-badge-gray-txt);}
+  .badge-purple{background:var(--color-badge-purple-bg);color:var(--color-badge-purple-txt);}
+  .score-list{display:flex;flex-direction:column;gap:1rem;}
+  .score-row{display:flex;flex-direction:column;gap:.25rem;}
+  .score-row-header{display:flex;justify-content:space-between;align-items:center;}
+  .score-category{font-size:.8125rem;font-weight:600;}
+  .score-fraction{font-size:.75rem;font-weight:600;color:var(--color-text-secondary);}
+  .score-progress-track{height:7px;background:#e2e8f0;border-radius:999px;overflow:hidden;}
+  .score-progress-fill{height:100%;border-radius:999px;}
+  .req-table{width:100%;border-collapse:collapse;font-size:.8125rem;}
+  .req-table th{text-align:left;padding:.5rem .75rem;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--color-text-muted);border-bottom:2px solid var(--color-border);background:#f8fafc;}
+  .req-table td{padding:.625rem .75rem;vertical-align:top;border-bottom:1px solid var(--color-border);color:var(--color-text-secondary);}
+  .req-table tr:last-child td{border-bottom:none;}
+  .req-table tr:hover td{background:#f8fafc;}
+  .req-name{font-weight:600;color:var(--color-text-primary);}
+  .req-type{font-size:.7rem;font-weight:600;color:var(--color-text-muted);text-transform:uppercase;}
+  .link-btn{background:none;border:none;padding:0;color:var(--color-shortlist);font-weight:600;font-size:.8125rem;cursor:pointer;font-family:inherit;}
+  .link-btn:hover{text-decoration:underline;}
+  .item-list{display:flex;flex-direction:column;gap:.625rem;}
+  .item-row{display:flex;align-items:flex-start;gap:.625rem;padding:.625rem .875rem;border-radius:7px;font-size:.8125rem;}
+  .item-row.strength{background:#f0fdf4;color:#166534;border:1px solid #bbf7d0;}
+  .item-row.strength .item-icon{color:#22c55e;font-size:.875rem;flex-shrink:0;margin-top:1px;}
+  .item-row.gap{background:#fffbeb;color:#92400e;border:1px solid #fde68a;}
+  .item-row.gap .item-icon{color:#f59e0b;font-size:.875rem;flex-shrink:0;margin-top:1px;}
+  .risk-card{border:1px solid var(--color-border);border-radius:8px;padding:.875rem 1rem;display:flex;flex-direction:column;gap:.25rem;}
+  .risk-header{display:flex;align-items:center;justify-content:space-between;gap:.5rem;margin-bottom:.25rem;}
+  .risk-type{font-size:.8125rem;font-weight:700;color:var(--color-text-primary);}
+  .risk-description{font-size:.8rem;color:var(--color-text-secondary);line-height:1.55;}
+  .question-list{display:flex;flex-direction:column;gap:.75rem;counter-reset:question-counter;}
+  .question-item{display:flex;flex-direction:column;gap:.35rem;padding:.75rem 1rem;background:#f8fafc;border-radius:8px;border:1px solid var(--color-border);counter-increment:question-counter;}
+  .question-text{font-size:.8375rem;font-weight:600;line-height:1.55;}
+  .question-text::before{content:counter(question-counter) ". ";color:var(--color-text-muted);}
+  .report-footer{margin-top:1rem;padding:1rem 0 0;border-top:1px solid var(--color-border);text-align:center;}
+  .footer-disclaimer{font-size:.7rem;color:var(--color-text-muted);line-height:1.5;max-width:700px;margin:0 auto .25rem;}
+  .footer-brand{font-size:.675rem;color:#cbd5e1;letter-spacing:.03em;}
+  .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;}
+  .detail-bar{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;}
+  .back-link{background:none;border:1.5px solid var(--color-border);border-radius:6px;padding:.4rem .8rem;font-size:.8125rem;font-weight:600;color:var(--color-text-secondary);cursor:pointer;font-family:inherit;}
+  .report-frame{width:100%;height:1500px;border:1px solid var(--color-border);border-radius:10px;background:#fff;}
+  .frame-hint{font-size:.7rem;color:var(--color-text-muted);}
+  .no-data-notice{background:#fef9ec;border:1px solid #fde68a;border-radius:10px;padding:1.5rem 1.75rem;display:flex;flex-direction:column;gap:.5rem;}
+  .no-data-notice .notice-title{font-size:.9375rem;font-weight:700;color:#92400e;display:flex;align-items:center;gap:.5rem;}
+  .no-data-notice .notice-body{font-size:.8375rem;color:#78350f;line-height:1.65;}
+  @media(max-width:900px){.sidebar{position:relative;width:100%;height:auto;flex-direction:row;flex-wrap:wrap;}.main-content{margin-left:0;}.kpi-row{grid-template-columns:repeat(2,1fr);}.grid-3{grid-template-columns:1fr;}}
+  @media(max-width:540px){.kpi-row{grid-template-columns:1fr;}.report-header{flex-direction:column;}}
+</style>
+<script>
+  function showView(id, el){
+    document.querySelectorAll('.view').forEach(function(v){v.classList.remove('active');});
+    var t=document.getElementById('view-'+id); if(t){t.classList.add('active');}
+    document.querySelectorAll('.nav-item').forEach(function(n){n.classList.remove('active');});
+    if(el){el.classList.add('active');}
+    window.scrollTo(0,0);
+  }
+  function openCandidate(url, name){
+    var f=document.getElementById('cand-frame');
+    f.src=url;
+    document.getElementById('cand-frame-title').textContent=name;
+    document.getElementById('cand-frame-open').href=url;
+    showView('candidate-detail');
+    var c=document.getElementById('nav-candidates'); if(c){c.classList.add('active');}
+  }
+  window.addEventListener('DOMContentLoaded', function(){
+    showView('overview', document.getElementById('nav-overview'));
+  });
+</script>
+</head>
+<body>
+<div class="page-shell">
+
+  <!-- ===== SIDEBAR ===== -->
+  <aside class="sidebar">
+    <div class="sidebar-logo"><div class="logo-text"><span class="logo-dot"></span> Demo Screening</div></div>
+    <nav class="sidebar-nav">
+      <div class="nav-item" id="nav-overview"  onclick="showView('overview', this)"><span class="nav-icon">&#8862;</span> Overview</div>
+      <div class="nav-item" id="nav-candidates" onclick="showView('candidates', this)"><span class="nav-icon">&#9672;</span> Candidates</div>
+      <div class="nav-item" id="nav-shortlist"  onclick="showView('shortlist', this)"><span class="nav-icon">&#9119;</span> Shortlist</div>
+      <div class="nav-item" id="nav-analytics"  onclick="showView('analytics', this)"><span class="nav-icon">&#9650;</span> Analytics</div>
+    </nav>
+    <div class="sidebar-profile"><div class="profile-avatar">IS</div><div class="profile-info"><div class="profile-name">Idris Souane</div><div class="profile-role">Hiring Manager</div></div></div>
+  </aside>
+
+  <!-- ===== MAIN ===== -->
+  <main class="main-content">
+
+    <div class="report-header">
+      <div class="header-left">
+        <div class="report-title">Vacancy Screening Report</div>
+        <div class="candidate-name">Business Analyst</div>
+        <div class="header-meta"><span>Vacancy: RQ1000</span><span>Company: Mr.Robot Ltd</span><span>Department: Not provided</span></div>
+        <div class="header-meta"><span>Hiring Manager: Idris Souane</span><span>Candidates Screened: 3</span></div>
+        <div class="header-meta"><span>Report Date: 13 June 2026</span></div>
+      </div>
+      <div class="header-actions"><button class="btn btn-outline">Export Report</button><button class="btn btn-primary">Share</button></div>
+    </div>
+
+    <div class="content-sections">
+
+      <!-- ============ VIEW: OVERVIEW ============ -->
+      <section class="view" id="view-overview">
+
+        <div class="no-data-notice">
+          <div class="notice-title">&#9888; Screening Data Unavailable</div>
+          <div class="notice-body">All three candidate records in this pool were submitted with a null Screening Result. No scores, names, recommendations, or evaluation evidence are available. The KPI figures below reflect this absence. Please re-trigger screening or supply completed screening JSON before proceeding to shortlisting.</div>
+        </div>
+
+        <div class="kpi-row">
+          <div class="kpi-card">
+            <div class="kpi-label">Total Applicants</div>
+            <div class="kpi-value">3</div>
+            <div style="font-size:.7rem;color:var(--color-text-muted);">screened for this role</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">Shortlist or Stronger</div>
+            <div class="kpi-value">0</div>
+            <div style="font-size:.7rem;color:var(--color-text-muted);">Interview + Shortlist</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">Average Score</div>
+            <div class="kpi-value">N/A <span style="font-size:1rem;font-weight:500;color:var(--color-text-muted);">/ 100</span></div>
+            <div class="score-bar-container"><div class="score-bar-fill" style="width:0%;background:var(--color-bar-low);"></div></div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">Highest Score</div>
+            <div class="kpi-value">N/A <span style="font-size:1rem;font-weight:500;color:var(--color-text-muted);">/ 100</span></div>
+            <div style="font-size:.7rem;color:var(--color-text-muted);">Not provided</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">&#128203; Executive Summary</div>
+          <p style="font-size:.875rem;color:var(--color-text-secondary);line-height:1.7;">
+            Three candidates were received for the Business Analyst role (RQ1000) at Mr.Robot Ltd. However, all three candidate records carry a null Screening Result — no structured screening JSON, scoring data, recommendation, or candidate name is available for any applicant in this pool. As a result, no candidate can be ranked, assessed, or shortlisted at this stage. The pool cannot be evaluated until complete screening outputs are provided. Idris Souane is advised to hold shortlisting decisions and initiate a re-screen before proceeding.
+          </p>
+        </div>
+
+        <div class="grid-3">
+          <div class="card">
+            <div class="card-title">&#128170; Common Strengths</div>
+            <div class="item-list">
+              <div class="item-row gap"><span class="item-icon">&#9888;</span><span>No screening data available — strengths cannot be identified from null results.</span></div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-title">&#9888; Recurring Gaps</div>
+            <div class="item-list">
+              <div class="item-row gap"><span class="item-icon">&#9888;</span><span>Screening results are absent for all three candidates, preventing gap analysis.</span></div>
+              <div class="item-row gap"><span class="item-icon">&#9888;</span><span>No candidate name, score, or recommendation data was supplied in the pool JSON.</span></div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-title">&#128681; Notable Risks</div>
+            <div class="item-list">
+              <div class="risk-card">
+                <div class="risk-header"><span class="risk-type">Null Screening Data</span><span class="badge badge-red">High</span></div>
+                <div class="risk-description">All three candidate records returned a null Screening Result. No evaluation evidence exists. Shortlisting from this pool would be uninformed and is not recommended.</div>
+              </div>
+              <div class="risk-card">
+                <div class="risk-header"><span class="risk-type">Pipeline Stall Risk</span><span class="badge badge-amber">Medium</span></div>
+                <div class="risk-description">Without actionable screening outputs, the RQ1000 recruitment timeline is at risk of delay. Prompt re-screening or data resubmission is required to maintain hiring momentum.</div>
+              </div>
+              <div class="risk-card">
+                <div class="risk-header"><span class="risk-type">Sourcing Coverage Unknown</span><span class="badge badge-gray">Low</span></div>
+                <div class="risk-description">With only three applicants and no assessable data, it is unclear whether the current sourcing channels are reaching a sufficient or suitable candidate pool for this role.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">&#9989; Recommended Next Actions</div>
+          <div class="question-list">
+            <div class="question-item"><div class="question-text">Re-trigger the AI screening pipeline for all three candidate records submitted under RQ1000 and confirm that each screening result returns a populated JSON object rather than null before re-generating this report.</div></div>
+            <div class="question-item"><div class="question-text">Verify that the source data (CVs or application files) for all three applicants were correctly attached and parsed prior to screening — null results often indicate a missing or unreadable input document.</div></div>
+            <div class="question-item"><div class="question-text">Do not proceed with shortlisting, interview scheduling, or any hiring decision based on this report; no candidate evidence exists to support a defensible selection choice at this time.</div></div>
+            <div class="question-item"><div class="question-text">Consider whether three applicants is a sufficient pool for the Business Analyst role at Mr.Robot Ltd. If the pipeline is thin, review job board coverage, posting copy, and salary benchmarks to widen sourcing before the next screening run.</div></div>
+            <div class="question-item"><div class="question-text">Once valid screening data is received, regenerate this vacancy report and review the updated Overview, Candidates, and Shortlist views before meeting with the hiring manager, Idris Souane, to agree a shortlist.</div></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ VIEW: CANDIDATES ============ -->
+      <section class="view" id="view-candidates">
+        <div class="view-title">All Candidates</div>
+
+        <div class="no-data-notice">
+          <div class="notice-title">&#9888; No Screening Data Available</div>
+          <div class="notice-body">All three candidate records were submitted with a null Screening Result. Scores, names, recommendations, and individual report links cannot be displayed. The table below reflects this absence. Please re-screen and regenerate this report.</div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">&#127942; Candidate Ranking &mdash; Highest Score First</div>
+          <table class="req-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Candidate</th>
+                <th>Score</th>
+                <th>Recommendation</th>
+                <th>Rationale</th>
+                <th>Report</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="req-type">1</td>
+                <td class="req-name">Not provided</td>
+                <td>Not provided</td>
+                <td><span class="badge badge-gray">Cannot Assess</span></td>
+                <td>Screening result is null — no evaluation data available for this applicant.</td>
+                <td>Not provided</td>
+              </tr>
+              <tr>
+                <td class="req-type">2</td>
+                <td class="req-name">Not provided</td>
+                <td>Not provided</td>
+                <td><span class="badge badge-gray">Cannot Assess</span></td>
+                <td>Screening result is null — no evaluation data available for this applicant.</td>
+                <td>Not provided</td>
+              </tr>
+              <tr>
+                <td class="req-type">3</td>
+                <td class="req-name">Not provided</td>
+                <td>Not provided</td>
+                <td><span class="badge badge-gray">Cannot Assess</span></td>
+                <td>Screening result is null — no evaluation data available for this applicant.</td>
+                <td>Not provided</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ============ VIEW: CANDIDATE DETAIL ============ -->
+      <section class="view" id="view-candidate-detail">
+        <div class="detail-bar">
+          <button class="back-link" onclick="showView('candidates', document.getElementById('nav-candidates'))">&larr; Back to candidates</button>
+          <div style="font-weight:700;" id="cand-frame-title">Candidate</div>
+          <a class="link-btn" id="cand-frame-open" href="#" target="_blank" rel="noopener">Open in new tab &#8599;</a>
+        </div>
+        <iframe id="cand-frame" class="report-frame" src="about:blank" title="Individual candidate report"></iframe>
+        <div class="frame-hint">The full individual screening report is embedded above. If it does not display, use "Open in new tab".</div>
+      </section>
+
+      <!-- ============ VIEW: SHORTLIST ============ -->
+      <section class="view" id="view-shortlist">
+        <div class="view-title">Shortlist for the Hiring Manager</div>
+
+        <div class="no-data-notice">
+          <div class="notice-title">&#9888; No Shortlistable Candidates</div>
+          <div class="notice-body">
+            None of the three candidates in this pool for RQ1000 reached an Interview or Shortlist recommendation band. All three screening results are null, meaning no candidate can be assessed, scored, or surfaced for the hiring manager's consideration at this time. A shortlist cannot be formed from this data.<br><br>
+            <strong>Recommended course of action:</strong> Re-submit all three candidate records through the screening pipeline with complete CV data attached, then regenerate this vacancy report. If re-screening still yields insufficient qualified candidates, consider reopening sourcing channels to attract a broader pool for the Business Analyst role at Mr.Robot Ltd.
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">&#9989; Recommended Next Actions</div>
+          <div class="question-list">
+            <div class="question-item"><div class="question-text">Re-screen all three applicants by resubmitting their CVs through the AI screening pipeline; confirm each record returns a valid, non-null screening JSON before attempting shortlisting.</div></div>
+            <div class="question-item"><div class="question-text">If re-screening confirms no candidates meet the Business Analyst requirements, reopen the vacancy to sourcing — review the job description clarity, advertised channels, and compensation to broaden applicant quality.</div></div>
+            <div class="question-item"><div class="question-text">Schedule a brief check-in between the recruiter and Idris Souane to align on must-have versus nice-to-have criteria; this may reveal that assessment thresholds can be adjusted without compromising role fit.</div></div>
+            <div class="question-item"><div class="question-text">Once a shortlist of at least two Interview-band candidates exists, regenerate this report and share the updated Shortlist view with Idris Souane ahead of interview scheduling.</div></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ VIEW: ANALYTICS ============ -->
+      <section class="view" id="view-analytics">
+        <div class="view-title">Pool Analytics</div>
+
+        <div class="no-data-notice">
+          <div class="notice-title">&#9888; Analytics Based on Null Screening Results</div>
+          <div class="notice-body">All distribution and score figures below reflect the actual submitted data, in which all three candidates carry null screening results. All three are classified as Cannot Assess. No scores exist from which to compute averages or score bars.</div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">&#128202; Recommendation Distribution</div>
+          <div class="score-list">
+            <div class="score-row">
+              <div class="score-row-header"><span class="score-category">Interview</span><span class="score-fraction">0 of 3 (0%)</span></div>
+              <div class="score-progress-track"><div class="score-progress-fill" style="width:0%;background:var(--color-invite);"></div></div>
+            </div>
+            <div class="score-row">
+              <div class="score-row-header"><span class="score-category">Shortlist</span><span class="score-fraction">0 of 3 (0%)</span></div>
+              <div class="score-progress-track"><div class="score-progress-fill" style="width:0%;background:var(--color-shortlist);"></div></div>
+            </div>
+            <div class="score-row">
+              <div class="score-row-header"><span class="score-category">Maybe</span><span class="score-fraction">0 of 3 (0%)</span></div>
+              <div class="score-progress-track"><div class="score-progress-fill" style="width:0%;background:var(--color-maybe);"></div></div>
+            </div>
+            <div class="score-row">
+              <div class="score-row-header"><span class="score-category">Reject</span><span class="score-fraction">0 of 3 (0%)</span></div>
+              <div class="score-progress-track"><div class="score-progress-fill" style="width:0%;background:var(--color-reject);"></div></div>
+            </div>
+            <div class="score-row">
+              <div class="score-row-header"><span class="score-category">Cannot Assess</span><span class="score-fraction">3 of 3 (100%)</span></div>
+              <div class="score-progress-track"><div class="score-progress-fill" style="width:100%;background:var(--color-cannot);"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">&#128200; Score by Candidate</div>
+          <div class="score-list">
+            <div class="score-row">
+              <div class="score-row-header"><span class="score-category">Applicant 1 — Not provided</span><span class="score-fraction">N/A / 100</span></div>
+              <div class="score-progress-track"><div class="score-progress-fill" style="width:0%;background:var(--color-bar-low);"></div></div>
+            </div>
+            <div class="score-row">
+              <div class="score-row-header"><span class="score-category">Applicant 2 — Not provided</span><span class="score-fraction">N/A / 100</span></div>
+              <div class="score-progress-track"><div class="score-progress-fill" style="width:0%;background:var(--color-bar-low);"></div></div>
+            </div>
+            <div class="score-row">
+              <div class="score-row-header"><span class="score-category">Applicant 3 — Not provided</span><span class="score-fraction">N/A / 100</span></div>
+              <div class="score-progress-track"><div class="score-progress-fill" style="width:0%;background:var(--color-bar-low);"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-3">
+          <div class="kpi-card">
+            <div class="kpi-label">Candidates Auto-Screened</div>
+            <div class="kpi-value">3</div>
+            <div style="font-size:.7rem;color:var(--color-text-muted);">no manual CV sift required</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">Reports Generated</div>
+            <div class="kpi-value">3</div>
+            <div style="font-size:.7rem;color:var(--color-text-muted);">individual + this summary</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">Shortlist Ready</div>
+            <div class="kpi-value">0</div>
+            <div style="font-size:.7rem;color:var(--color-text-muted);">surfaced for the hiring manager</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <div class="report-footer">
+        <p class="footer-disclaimer">This report is based on structured AI-assisted screening outputs for RQ1000, generated on 13 June 2026. All three candidate screening results were null at time of generation; no scores or recommendations could be derived. Scores and recommendations reflect an AI-assisted first-pass screen. Final shortlisting and hiring decisions remain with the recruiter and hiring manager.</p>
+        <p class="footer-brand">Generated by Demo Screening &middot; AI-Assisted Recruitment Platform</p>
+      </div>
+
+    </div>
+  </main>
+</div>
+</body>
+</html>
