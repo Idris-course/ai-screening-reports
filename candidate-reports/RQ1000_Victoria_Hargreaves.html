@@ -1,0 +1,1223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Candidate Screening Report — Victoria Hargreaves</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --color-navy:        #0f172a;
+    --color-navy-mid:    #1e293b;
+    --color-navy-light:  #334155;
+    --color-bg:          #f1f5f9;
+    --color-surface:     #ffffff;
+    --color-border:      #e2e8f0;
+    --color-text-primary:   #0f172a;
+    --color-text-secondary: #475569;
+    --color-text-muted:     #94a3b8;
+    --color-text-white:     #ffffff;
+    --color-invite:      #22c55e;
+    --color-shortlist:   #6366f1;
+    --color-maybe:       #f59e0b;
+    --color-reject:      #ef4444;
+    --color-cannot:      #6b7280;
+    --color-bar-high:    #22c55e;
+    --color-bar-mid:     #f59e0b;
+    --color-bar-low:     #ef4444;
+    --color-badge-green-bg:  #dcfce7;
+    --color-badge-green-txt: #166534;
+    --color-badge-amber-bg:  #fef3c7;
+    --color-badge-amber-txt: #92400e;
+    --color-badge-red-bg:    #fee2e2;
+    --color-badge-red-txt:   #991b1b;
+    --color-badge-gray-bg:   #f1f5f9;
+    --color-badge-gray-txt:  #475569;
+    --color-badge-purple-bg: #ede9fe;
+    --color-badge-purple-txt:#4338ca;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--color-text-primary);
+    background: var(--color-bg);
+    margin: 0;
+    padding: 0;
+  }
+
+  h1 { font-size: 1.5rem; font-weight: 700; margin: 0; }
+  h2 { font-size: 1.1rem; font-weight: 600; margin: 0 0 1rem 0; color: var(--color-text-primary); }
+  h3 { font-size: 0.9rem; font-weight: 600; margin: 0; }
+  p  { margin: 0 0 0.5rem 0; }
+
+  /* Layout */
+  .page-shell {
+    display: flex;
+    min-height: 100vh;
+  }
+
+  /* Sidebar */
+  .sidebar {
+    width: 220px;
+    min-width: 220px;
+    background: var(--color-navy);
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    overflow-y: auto;
+    z-index: 100;
+  }
+
+  .sidebar-logo {
+    padding: 1.5rem 1.25rem 1rem;
+    border-bottom: 1px solid var(--color-navy-light);
+  }
+
+  .sidebar-logo .logo-text {
+    color: var(--color-text-white);
+    font-size: 1rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .sidebar-logo .logo-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 2px;
+    background: #14b8a6;
+    display: inline-block;
+    flex-shrink: 0;
+  }
+
+  .sidebar-nav {
+    flex: 1;
+    padding: 0.75rem 0;
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    padding: 0.625rem 1.25rem;
+    color: #94a3b8;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    cursor: default;
+    border-left: 3px solid transparent;
+    text-decoration: none;
+  }
+
+  .nav-item:hover {
+    background: var(--color-navy-mid);
+    color: #cbd5e1;
+  }
+
+  .nav-item.active {
+    background: var(--color-navy-mid);
+    color: var(--color-text-white);
+    border-left-color: #14b8a6;
+    font-weight: 600;
+  }
+
+  .nav-item .nav-icon {
+    font-size: 0.875rem;
+    width: 16px;
+    text-align: center;
+    opacity: 0.8;
+  }
+
+  .sidebar-profile {
+    padding: 1rem 1.25rem;
+    border-top: 1px solid var(--color-navy-light);
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+  }
+
+  .profile-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #14b8a6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .profile-info { min-width: 0; }
+
+  .profile-info .profile-name {
+    color: #e2e8f0;
+    font-size: 0.75rem;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .profile-info .profile-role {
+    color: #64748b;
+    font-size: 0.6875rem;
+  }
+
+  /* Main content */
+  .main-content {
+    margin-left: 220px;
+    flex: 1;
+    padding: 0;
+    min-height: 100vh;
+    background: var(--color-bg);
+  }
+
+  /* Header */
+  .report-header {
+    background: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+    padding: 1.25rem 2rem;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .header-left .report-title {
+    font-size: 1.375rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin: 0 0 0.25rem;
+  }
+
+  .header-left .candidate-name {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #334155;
+    margin: 0 0 0.25rem;
+  }
+
+  .header-left .header-meta {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    margin: 0.1rem 0;
+  }
+
+  .header-left .header-meta span {
+    margin-right: 1.25rem;
+  }
+
+  .header-actions {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    flex-shrink: 0;
+    padding-top: 0.25rem;
+  }
+
+  .btn {
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    cursor: default;
+    border: none;
+  }
+
+  .btn-outline {
+    background: transparent;
+    border: 1.5px solid var(--color-border);
+    color: var(--color-text-secondary);
+  }
+
+  .btn-primary {
+    background: #0ea5e9;
+    color: white;
+  }
+
+  /* Content wrapper */
+  .content-sections {
+    padding: 1.5rem 2rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  /* Cards */
+  .card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    padding: 1.25rem 1.5rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  }
+
+  .card-title {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin: 0 0 1rem 0;
+    padding-bottom: 0.625rem;
+    border-bottom: 1px solid var(--color-border);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  /* KPI row */
+  .kpi-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+  }
+
+  .kpi-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    padding: 1.25rem 1.25rem 1rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .kpi-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text-muted);
+  }
+
+  .kpi-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    line-height: 1.2;
+  }
+
+  .kpi-badge {
+    display: inline-block;
+    padding: 0.3rem 0.875rem;
+    border-radius: 999px;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: white;
+    text-align: center;
+    width: fit-content;
+  }
+
+  .score-bar-container {
+    margin-top: 0.375rem;
+    height: 5px;
+    background: var(--color-border);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+
+  .score-bar-fill {
+    height: 100%;
+    border-radius: 999px;
+  }
+
+  /* Status badges */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .badge-green  { background: var(--color-badge-green-bg);  color: var(--color-badge-green-txt); }
+  .badge-amber  { background: var(--color-badge-amber-bg);  color: var(--color-badge-amber-txt); }
+  .badge-red    { background: var(--color-badge-red-bg);    color: var(--color-badge-red-txt); }
+  .badge-gray   { background: var(--color-badge-gray-bg);   color: var(--color-badge-gray-txt); }
+  .badge-purple { background: var(--color-badge-purple-bg); color: var(--color-badge-purple-txt); }
+
+  /* Score breakdown */
+  .score-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .score-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .score-row-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .score-category {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+  }
+
+  .score-fraction {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-text-secondary);
+  }
+
+  .score-progress-track {
+    height: 7px;
+    background: #e2e8f0;
+    border-radius: 999px;
+    overflow: hidden;
+  }
+
+  .score-progress-fill {
+    height: 100%;
+    border-radius: 999px;
+  }
+
+  .score-anchor {
+    font-size: 0.7rem;
+    color: var(--color-text-muted);
+    font-weight: 500;
+  }
+
+  .score-reasoning {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    font-style: italic;
+    margin-top: 0.15rem;
+  }
+
+  /* Requirement table */
+  .req-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.8125rem;
+  }
+
+  .req-table th {
+    text-align: left;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text-muted);
+    border-bottom: 2px solid var(--color-border);
+    background: #f8fafc;
+  }
+
+  .req-table td {
+    padding: 0.625rem 0.75rem;
+    vertical-align: top;
+    border-bottom: 1px solid var(--color-border);
+    color: var(--color-text-secondary);
+  }
+
+  .req-table tr:last-child td {
+    border-bottom: none;
+  }
+
+  .req-table tr:hover td {
+    background: #f8fafc;
+  }
+
+  .req-name {
+    font-weight: 600;
+    color: var(--color-text-primary);
+  }
+
+  .req-type {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+  }
+
+  /* Strengths / gaps / risks */
+  .item-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+  }
+
+  .item-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.625rem;
+    padding: 0.625rem 0.875rem;
+    border-radius: 7px;
+    font-size: 0.8125rem;
+  }
+
+  .item-row.strength {
+    background: #f0fdf4;
+    color: #166534;
+    border: 1px solid #bbf7d0;
+  }
+
+  .item-row.strength .item-icon { color: #22c55e; font-size: 0.875rem; flex-shrink: 0; margin-top: 1px; }
+
+  .item-row.gap {
+    background: #fffbeb;
+    color: #92400e;
+    border: 1px solid #fde68a;
+  }
+
+  .item-row.gap .item-icon { color: #f59e0b; font-size: 0.875rem; flex-shrink: 0; margin-top: 1px; }
+
+  .risk-card {
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 0.875rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .risk-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .risk-type {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+  }
+
+  .risk-description {
+    font-size: 0.8rem;
+    color: var(--color-text-secondary);
+    line-height: 1.55;
+  }
+
+  .empty-state {
+    color: var(--color-text-muted);
+    font-size: 0.8125rem;
+    font-style: italic;
+    padding: 0.25rem 0;
+  }
+
+  /* Interview questions */
+  .question-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    counter-reset: question-counter;
+  }
+
+  .question-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    padding: 0.75rem 1rem;
+    background: #f8fafc;
+    border-radius: 8px;
+    border: 1px solid var(--color-border);
+    counter-increment: question-counter;
+  }
+
+  .question-text {
+    font-size: 0.8375rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    line-height: 1.55;
+  }
+
+  .question-text::before {
+    content: counter(question-counter) ". ";
+    color: var(--color-text-muted);
+  }
+
+  .probe-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.15rem 0.5rem;
+    background: #ede9fe;
+    color: #4338ca;
+    border-radius: 4px;
+    font-size: 0.675rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    width: fit-content;
+  }
+
+  /* Recruiter action card */
+  .action-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    padding: 1.5rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    display: flex;
+    flex-direction: column;
+    gap: 0.875rem;
+  }
+
+  .action-card .action-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-text-muted);
+  }
+
+  .action-card .action-statement {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+  }
+
+  .override-notice {
+    background: #fffbeb;
+    border: 1px solid #fde68a;
+    border-radius: 6px;
+    padding: 0.625rem 0.875rem;
+    font-size: 0.8rem;
+    color: #92400e;
+  }
+
+  /* Hiring considerations */
+  .considerations-text {
+    font-size: 0.8125rem;
+    color: var(--color-text-secondary);
+    line-height: 1.65;
+  }
+
+  /* Footer */
+  .report-footer {
+    margin-top: 1rem;
+    padding: 1rem 0 0;
+    border-top: 1px solid var(--color-border);
+    text-align: center;
+  }
+
+  .footer-disclaimer {
+    font-size: 0.7rem;
+    color: var(--color-text-muted);
+    line-height: 1.5;
+    max-width: 700px;
+    margin: 0 auto 0.25rem;
+  }
+
+  .footer-brand {
+    font-size: 0.675rem;
+    color: #cbd5e1;
+    letter-spacing: 0.03em;
+  }
+
+  /* Utilities */
+  .text-muted    { color: var(--color-text-muted); }
+  .text-sm       { font-size: 0.75rem; }
+  .text-xs       { font-size: 0.6875rem; }
+  .font-semibold { font-weight: 600; }
+  .font-bold     { font-weight: 700; }
+  .mt-xs         { margin-top: 0.25rem; }
+  .mt-sm         { margin-top: 0.5rem; }
+  .mt-md         { margin-top: 1rem; }
+  .flex          { display: flex; }
+  .flex-col      { flex-direction: column; }
+  .gap-xs        { gap: 0.25rem; }
+  .gap-sm        { gap: 0.5rem; }
+  .items-center  { align-items: center; }
+  .justify-between { justify-content: space-between; }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .sidebar {
+      position: relative;
+      width: 100%;
+      height: auto;
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+    .main-content {
+      margin-left: 0;
+    }
+    .kpi-row {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 540px) {
+    .kpi-row {
+      grid-template-columns: 1fr;
+    }
+    .report-header {
+      flex-direction: column;
+    }
+  }
+</style>
+</head>
+<body>
+<div class="page-shell">
+
+  <!-- ===== SIDEBAR ===== -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-text">
+        <span class="logo-dot"></span>
+        Demo Screening
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-item">
+        <span class="nav-icon">⊞</span> Overview
+      </div>
+      <div class="nav-item active">
+        <span class="nav-icon">◈</span> Candidates
+      </div>
+      <div class="nav-item">
+        <span class="nav-icon">◉</span> Reports
+      </div>
+      <div class="nav-item">
+        <span class="nav-icon">▦</span> Vacancies
+      </div>
+      <div class="nav-item">
+        <span class="nav-icon">✦</span> Assessments
+      </div>
+      <div class="nav-item">
+        <span class="nav-icon">⊟</span> Shortlists
+      </div>
+      <div class="nav-item">
+        <span class="nav-icon">◷</span> Interviews
+      </div>
+      <div class="nav-item">
+        <span class="nav-icon">▲</span> Analytics
+      </div>
+      <div class="nav-item">
+        <span class="nav-icon">⊜</span> Templates
+      </div>
+      <div class="nav-item">
+        <span class="nav-icon">⚙</span> Settings
+      </div>
+    </nav>
+
+    <div class="sidebar-profile">
+      <div class="profile-avatar">RP</div>
+      <div class="profile-info">
+        <div class="profile-name">Recruiter Portal</div>
+        <div class="profile-role">AI-Assisted Screening</div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="main-content">
+
+    <!-- Section 2: Header -->
+    <div class="report-header">
+      <div class="header-left">
+        <div class="report-title">Candidate Screening Report</div>
+        <div class="candidate-name">Victoria Hargreaves</div>
+        <div class="header-meta">
+          <span>Candidate ID: 1</span>
+          <span>Application ID: recRM5nVuZqinvFCU</span>
+        </div>
+        <div class="header-meta">
+          <span>Vacancy: RQ1000</span>
+          <span>Role: Business Analyst</span>
+          <span>Company: Mr.Robot Ltd</span>
+        </div>
+        <div class="header-meta">
+          <span>Report Date: 2026-05-31</span>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="btn btn-outline">Export Report</button>
+        <button class="btn btn-primary">Share</button>
+      </div>
+    </div>
+
+    <div class="content-sections">
+
+      <!-- Section 3: KPI Cards -->
+      <div class="kpi-row">
+
+        <!-- Card 1: Recommendation -->
+        <div class="kpi-card">
+          <div class="kpi-label">Recommendation</div>
+          <div>
+            <span class="kpi-badge" style="background: #f59e0b;">Maybe</span>
+          </div>
+        </div>
+
+        <!-- Card 2: Screening Score -->
+        <div class="kpi-card">
+          <div class="kpi-label">Screening Score</div>
+          <div class="kpi-value">73 <span style="font-size:1rem; font-weight:500; color: var(--color-text-muted);">/ 100</span></div>
+          <div class="score-bar-container">
+            <div class="score-bar-fill" style="width: 73%; background: #f59e0b;"></div>
+          </div>
+        </div>
+
+        <!-- Card 3: Confidence -->
+        <div class="kpi-card">
+          <div class="kpi-label">Confidence</div>
+          <div class="kpi-value" style="font-size:1.1rem;">
+            <span class="badge badge-amber">Medium</span>
+          </div>
+        </div>
+
+        <!-- Card 4: Data Quality -->
+        <div class="kpi-card">
+          <div class="kpi-label">Data Quality</div>
+          <div class="kpi-value" style="font-size:1.1rem;">
+            <span class="badge badge-amber">Partial</span>
+          </div>
+          <div style="font-size:0.7rem; color: var(--color-text-muted); margin-top:0.25rem;">Screening based on partial application data.</div>
+        </div>
+
+      </div>
+
+      <!-- Section 4: Executive Summary -->
+      <div class="card">
+        <div class="card-title">📋 Executive Summary</div>
+        <p style="font-size: 0.875rem; color: var(--color-text-secondary); line-height: 1.7;">
+          Victoria Hargreaves presents an exceptionally experienced Business Analysis profile, with over 14 years of continuous BA career experience across Accenture, Vodafone, and BT Group — far exceeding the mandatory three-year minimum — alongside a current CBAP certification and a Six Sigma Black Belt. The screening result returns a recommendation of <strong>Maybe</strong> with a total score of <strong>73/100</strong> at <strong>Medium</strong> confidence, based on partial application data. The primary consideration is a significant seniority mismatch: the candidate's current role as Head of Business Analysis at BT Group, with accountability for 22 analysts and a £4.2M budget, represents material overqualification for this mid-level individual contributor position, and hands-on IC-level delivery practice has been exercised predominantly in a governance and leadership context for the past seven years. The candidate explicitly acknowledges this seniority gap and attributes the application to a personal decision to step back from management, which the hiring team may wish to explore further before progression.
+        </p>
+      </div>
+
+      <!-- Section 5: Score Breakdown -->
+      <div class="card">
+        <div class="card-title">📊 Score Breakdown</div>
+        <p style="font-size: 0.75rem; color: var(--color-text-muted); margin-bottom: 1rem;">Scoring is based on six evaluation dimensions. Maximum per category varies.</p>
+
+        <div class="score-list">
+
+          <!-- Relevant Experience: 26/30 = 86.7% → green -->
+          <div class="score-row">
+            <div class="score-row-header">
+              <span class="score-category">Relevant Experience</span>
+              <span class="score-fraction">26 / 30</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:0.5rem; margin: 0.1rem 0;">
+              <div class="score-progress-track" style="flex:1;">
+                <div class="score-progress-fill" style="width: 86.7%; background: var(--color-bar-high);"></div>
+              </div>
+              <span class="score-anchor">HIGH</span>
+            </div>
+            <div class="score-reasoning">Approximately 16 years of continuous BA career experience across three major employers, far exceeding the 3-year minimum. Senior BA delivery evidenced at Vodafone across £10M+ transformation programmes; Head of BA at BT Group leading 22 analysts across 6 programme workstreams. Score is below the top of the HIGH band due to 7 years of governance and leadership focus rather than individual contributor delivery, and a telecoms/consulting rather than SaaS background.</div>
+          </div>
+
+          <!-- Skills Match: 21/25 = 84% → green -->
+          <div class="score-row">
+            <div class="score-row-header">
+              <span class="score-category">Skills Match</span>
+              <span class="score-fraction">21 / 25</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:0.5rem; margin: 0.1rem 0;">
+              <div class="score-progress-track" style="flex:1;">
+                <div class="score-progress-fill" style="width: 84%; background: var(--color-bar-high);"></div>
+              </div>
+              <span class="score-anchor">HIGH</span>
+            </div>
+            <div class="score-reasoning">SQL (Advanced), Power BI (deep expertise), Tableau, Agile/SAFe, BPMN, JIRA, Confluence, Azure DevOps, CBAP (renewed 2020), and Six Sigma Black Belt are all evidenced. Python, R, and AI/ML are absent. Skills are largely listed rather than individually project-demonstrated in the most recent role, limiting the score from the top of the HIGH band.</div>
+          </div>
+
+          <!-- Achievement Quality: 9/15 = 60% → amber -->
+          <div class="score-row">
+            <div class="score-row-header">
+              <span class="score-category">Achievement Quality</span>
+              <span class="score-fraction">9 / 15</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:0.5rem; margin: 0.1rem 0;">
+              <div class="score-progress-track" style="flex:1;">
+                <div class="score-progress-fill" style="width: 60%; background: var(--color-bar-mid);"></div>
+              </div>
+              <span class="score-anchor">MID</span>
+            </div>
+            <div class="score-reasoning">Quantified achievements include growing the BT BA practice from 8 to 22 analysts in 4 years and a 2021 BT internal award for delivery excellence under the candidate's governance. Budget ownership of £4.2M and £10M+ transformation programmes at Vodafone indicate scale. However, achievements are primarily at practice-management and leadership level rather than individual BA delivery outcomes. No measurable BA-specific outcomes (e.g. efficiency gains, cost savings, requirements defect rates) are described.</div>
+          </div>
+
+          <!-- Motivation: 5/10 = 50% → amber -->
+          <div class="score-row">
+            <div class="score-row-header">
+              <span class="score-category">Motivation for Role</span>
+              <span class="score-fraction">5 / 10</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:0.5rem; margin: 0.1rem 0;">
+              <div class="score-progress-track" style="flex:1;">
+                <div class="score-progress-fill" style="width: 50%; background: var(--color-bar-mid);"></div>
+              </div>
+              <span class="score-anchor">MID</span>
+            </div>
+            <div class="score-reasoning">No cover letter was provided. Motivation assessed from resume evidence only. The candidate explicitly states a deliberate intention to step back from people management for personal reasons, which demonstrates self-aware and genuine motivation. However, there is no expressed alignment with Mr.Robot Ltd's specific focus on AI-powered automation or its product environment, and no evidence of company-specific research.</div>
+          </div>
+
+          <!-- Seniority Fit: 5/10 = 50% → amber -->
+          <div class="score-row">
+            <div class="score-row-header">
+              <span class="score-category">Seniority Fit</span>
+              <span class="score-fraction">5 / 10</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:0.5rem; margin: 0.1rem 0;">
+              <div class="score-progress-track" style="flex:1;">
+                <div class="score-progress-fill" style="width: 50%; background: var(--color-bar-mid);"></div>
+              </div>
+              <span class="score-anchor">MID</span>
+            </div>
+            <div class="score-reasoning">The target role is a mid-level BA position (3+ year minimum, £55,000–£70,000 salary band). The candidate is currently Head of Business Analysis at BT Group, managing 22 analysts across 6 workstreams with £4.2M budget accountability — at least two seniority levels above this role. The candidate explicitly acknowledges the gap ("applying intentionally"), which mitigates some concern, but the degree of overqualification creates a documented retention and flight risk.</div>
+          </div>
+
+          <!-- Risk Factors: 7/10 = 70% → amber -->
+          <div class="score-row">
+            <div class="score-row-header">
+              <span class="score-category">Risk Factors</span>
+              <span class="score-fraction">7 / 10</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:0.5rem; margin: 0.1rem 0;">
+              <div class="score-progress-track" style="flex:1;">
+                <div class="score-progress-fill" style="width: 70%; background: var(--color-bar-mid);"></div>
+              </div>
+              <span class="score-anchor">MEDIUM RISK</span>
+            </div>
+            <div class="score-reasoning">Score starts at 10. Deduction of 2 points for significant overqualification and associated retention/flight risk: candidate is currently a Head of BA managing 22 analysts with £4.2M budget ownership, applying for a mid-level IC role. Deduction of 1 point for individual contributor practice gap: most recent 7 years (Jan 2018–Present) have been in governance and people leadership; hands-on IC-level BA delivery was last primarily evidenced at Vodafone (ending Dec 2017). Final score: 7/10.</div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Section 6: Requirement Match Analysis -->
+      <div class="card">
+        <div class="card-title">✅ Requirement Match Analysis</div>
+        <div style="overflow-x: auto;">
+          <table class="req-table">
+            <thead>
+              <tr>
+                <th style="min-width:200px;">Requirement</th>
+                <th style="min-width:90px;">Type</th>
+                <th style="min-width:110px;">Status</th>
+                <th style="min-width:220px;">Evidence</th>
+                <th style="min-width:250px;">Explanation</th>
+              </tr>
+            </thead>
+            <tbody>
+
+              <tr>
+                <td><span class="req-name">Minimum 3 years of Business Analyst experience</span></td>
+                <td><span class="req-type">Mandatory</span></td>
+                <td><span class="badge badge-green">MET</span></td>
+                <td>Continuous BA career from Sep 2009 to present across Accenture, Vodafone, and BT Group. Total evidenced BA career span approximately 16 years.</td>
+                <td>The candidate far exceeds the minimum 3-year requirement with over 14 years of evidenced BA experience across three employers.</td>
+              </tr>
+
+              <tr>
+                <td><span class="req-name">Demonstrable SQL proficiency</span></td>
+                <td><span class="req-type">Mandatory</span></td>
+                <td><span class="badge badge-green">MET</span></td>
+                <td>Skills section explicitly lists SQL (Advanced). BT Group role references deep SQL expertise accumulated over 14 years.</td>
+                <td>SQL is explicitly self-rated as Advanced and reinforced in the BT Group role narrative. No specific query examples are provided to independently verify depth, but the explicit Advanced rating and reinforcing narrative constitute sufficient evidence for this mandatory requirement.</td>
+              </tr>
+
+              <tr>
+                <td><span class="req-name">Experience producing formal business requirements documentation</span></td>
+                <td><span class="req-type">Mandatory</span></td>
+                <td><span class="badge badge-green">MET</span></td>
+                <td>Vodafone role states "led requirements workstreams, produced full documentation suites, and managed stakeholders." BT Group references requirements expertise as a core accumulated skill.</td>
+                <td>Formal requirements documentation is directly evidenced at Vodafone with explicit reference to full documentation suites, and reinforced by 14 years of stated requirements expertise at BT Group.</td>
+              </tr>
+
+              <tr>
+                <td><span class="req-name">Right to work in the United Kingdom</span></td>
+                <td><span class="req-type">Mandatory</span></td>
+                <td><span class="badge badge-green">MET</span></td>
+                <td>Resume header explicitly states "Right to work: British Citizen".</td>
+                <td>Right to work is confirmed as a British Citizen — mandatory requirement met.</td>
+              </tr>
+
+              <tr>
+                <td><span class="req-name">Power BI or Tableau data visualisation experience</span></td>
+                <td><span class="req-type">Skill</span></td>
+                <td><span class="badge badge-green">MET</span></td>
+                <td>Skills section lists both Power BI and Tableau. BT Group role references "deep SQL, Power BI, and requirements expertise accumulated over 14 years".</td>
+                <td>Both preferred visualisation tools are explicitly listed and Power BI is reinforced in the BT role narrative. The depth of hands-on individual contributor use versus governance-level oversight is not fully established, but the tools are clearly evidenced.</td>
+              </tr>
+
+              <tr>
+                <td><span class="req-name">Agile methodology experience (Scrum or Kanban)</span></td>
+                <td><span class="req-type">Skill</span></td>
+                <td><span class="badge badge-green">MET</span></td>
+                <td>Methodologies section lists Agile and SAFe. JIRA and Azure DevOps are also listed, consistent with Agile tooling.</td>
+                <td>Agile is explicitly listed as a methodology. SAFe (Scaled Agile Framework) is also referenced, suggesting applied experience at programme level. Specific Scrum or Kanban team membership is not described, but Agile delivery exposure is clearly evidenced.</td>
+              </tr>
+
+              <tr>
+                <td><span class="req-name">Requirements gathering, process mapping, and high-quality business documentation</span></td>
+                <td><span class="req-type">Skill</span></td>
+                <td><span class="badge badge-green">MET</span></td>
+                <td>Vodafone: "led requirements workstreams, produced full documentation suites." BT Group: "accountable for BA practice standards, tooling, and capability development." Skills list includes BPMN.</td>
+                <td>Requirements gathering and documentation are directly evidenced at both Vodafone and BT Group. BPMN listed as a methodology skill confirms process mapping capability.</td>
+              </tr>
+
+              <tr>
+                <td><span class="req-name">Stakeholder management and communication to senior leadership</span></td>
+                <td><span class="req-type">Skill</span></td>
+                <td><span class="badge badge-green">MET</span></td>
+                <td>BT Group: "Presented BA strategy to C-suite quarterly — budget ownership of £4.2M." Vodafone: managed stakeholders across £10M+ transformation programmes.</td>
+                <td>Stakeholder engagement at the highest level (C-suite presentations) is directly evidenced and quantified. This exceeds the role's requirement for presenting to senior leadership.</td>
+              </tr>
+
+              <tr>
+                <td><span class="req-name">Managing multiple workstreams and delivering under pressure</span></td>
+                <td><span class="req-type">Experience</span></td>
+                <td><span class="badge badge-green">MET</span></td>
+                <td>BT Group: "led a team of 22 Business Analysts across 6 programme workstreams." Vodafone: "Senior BA across multiple £10M+ transformation programmes."</td>
+                <td>Multi-workstream management is directly evidenced at both BT Group (6 workstreams simultaneously) and Vodafone (multiple large transformation programmes).</td>
+              </tr>
+
+              <tr>
+                <td><span class="req-name">Facilitating workshops, stakeholder interviews, and process mapping sessions</span></td>
+                <td><span class="req-type">Responsibility</span></td>
+                <td><span class="badge badge-amber">PARTIALLY MET</span></td>
+                <td>Vodafone: "managed stakeholders." BT Group: leadership and governance focus. BPMN listed as a methodology.</td>
+                <td>Stakeholder management is evidenced but specific facilitation of workshops or structured process mapping sessions at the individual contributor level is not explicitly described. Most recent experience is governance and team leadership rather than hands-on facilitation delivery.</td>
+              </tr>
+
+              <tr>
+                <td><span class="req-name">Building dashboards and reports using Power BI or Tableau</span></td>
+                <td><span class="req-type">Responsibility</span></td>
+                <td><span class="badge badge-amber">PARTIALLY MET</span></td>
+                <td>Power BI and Tableau listed in technical skills. BT role references deep SQL and Power BI expertise accumulated over 14 years.</td>
+                <td>Tools are evidenced but no specific dashboard or report deliverables are described at the individual contributor level. Given the candidate's recent Head of BA role, use of these tools may be primarily at oversight or strategic level. Hands-on individual build capability is not independently confirmed.</td>
+              </tr>
+
+              <tr>
+                <td><span class="req-name">Developing user stories, functional specifications, and Agile sprint artefacts</span></td>
+                <td><span class="req-type">Responsibility</span></td>
+                <td><span class="badge badge-amber">PARTIALLY MET</span></td>
+                <td>Vodafone: "produced full documentation suites." Skills include JIRA. Agile methodology listed.</td>
+                <td>Full documentation suites are evidenced at Vodafone and JIRA use supports Agile artefact familiarity. However, user stories specifically and sprint-level BA contributions (backlog refinement, sprint planning) are not explicitly described.</td>
+              </tr>
+
+              <tr>
+                <td><span class="req-name">Python or R for data analysis and automation</span></td>
+                <td><span class="req-type">Preferred</span></td>
+                <td><span class="badge badge-red">NOT MET</span></td>
+                <td>—</td>
+                <td>Neither Python nor R is mentioned anywhere in the resume. This is a preferred rather than mandatory skill.</td>
+              </tr>
+
+              <tr>
+                <td><span class="req-name">Familiarity with AI, machine learning, or intelligent automation</span></td>
+                <td><span class="req-type">Preferred</span></td>
+                <td><span class="badge badge-red">NOT MET</span></td>
+                <td>—</td>
+                <td>No reference to AI, machine learning, or intelligent automation appears anywhere in the candidate's documents.</td>
+              </tr>
+
+              <tr>
+                <td><span class="req-name">Cloud platform knowledge (AWS, Azure, or Google Cloud)</span></td>
+                <td><span class="req-type">Preferred</span></td>
+                <td><span class="badge badge-amber">PARTIALLY MET</span></td>
+                <td>Skills list includes Azure DevOps.</td>
+                <td>Azure DevOps is a project and pipeline management tool, not evidence of Azure cloud data platform or infrastructure knowledge. This partially addresses familiarity with the Microsoft Azure ecosystem but does not demonstrate cloud data warehousing or infrastructure knowledge as implied by the job description.</td>
+              </tr>
+
+              <tr>
+                <td><span class="req-name">Business analysis certification (CBAP, CCBA, or BCS Foundation)</span></td>
+                <td><span class="req-type">Preferred</span></td>
+                <td><span class="badge badge-green">MET</span></td>
+                <td>Education and Certifications: CBAP (2014) — renewed 2020.</td>
+                <td>CBAP (Certified Business Analysis Professional) is explicitly listed and confirmed as current (renewed 2020). This is the most senior BA certification in the IIBA framework and directly meets the preferred certification requirement.</td>
+              </tr>
+
+              <tr>
+                <td><span class="req-name">Process improvement frameworks (Lean or Six Sigma)</span></td>
+                <td><span class="req-type">Preferred</span></td>
+                <td><span class="badge badge-green">MET</span></td>
+                <td>Methodologies list includes Six Sigma. Education and Certifications: Six Sigma Black Belt (2016).</td>
+                <td>Six Sigma Black Belt certification (2016) is directly evidenced — the highest individual level of Six Sigma certification. This strongly meets the process improvement frameworks preferred criterion.</td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Section 7: Key Strengths -->
+      <div class="card">
+        <div class="card-title">💪 Key Strengths</div>
+        <div class="item-list">
+
+          <div class="item-row strength">
+            <span class="item-icon">✓</span>
+            <span>Over 14 years of continuous BA career experience across Accenture, Vodafone, and BT Group, far exceeding the mandatory 3-year minimum requirement.</span>
+          </div>
+
+          <div class="item-row strength">
+            <span class="item-icon">✓</span>
+            <span>SQL listed as Advanced and reinforced as a deep, long-standing skill in the BT Group role narrative — the mandatory SQL requirement is clearly met.</span>
+          </div>
+
+          <div class="item-row strength">
+            <span class="item-icon">✓</span>
+            <span>CBAP certification (2014, renewed 2020) — the most senior IIBA Business Analysis certification — directly matches a preferred qualification in the job description.</span>
+          </div>
+
+          <div class="item-row strength">
+            <span class="item-icon">✓</span>
+            <span>Six Sigma Black Belt (2016) directly meets the preferred process improvement frameworks criterion at the highest individual certification level.</span>
+          </div>
+
+          <div class="item-row strength">
+            <span class="item-icon">✓</span>
+            <span>C-suite stakeholder management directly evidenced: quarterly BA strategy presentations to BT Group's C-suite with £4.2M budget accountability — exceeding the job description's senior stakeholder communication requirement.</span>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Section 8: Gaps & Missing Requirements -->
+      <div class="card">
+        <div class="card-title">⚠ Gaps &amp; Missing Requirements</div>
+        <div class="item-list">
+
+          <div class="item-row gap">
+            <span class="item-icon">⚠</span>
+            <span>Python or R for data analysis and automation — not evidenced anywhere in the candidate's documents.</span>
+          </div>
+
+          <div class="item-row gap">
+            <span class="item-icon">⚠</span>
+            <span>AI, machine learning, or intelligent automation familiarity — not evidenced anywhere in the candidate's documents.</span>
+          </div>
+
+          <div class="item-row gap">
+            <span class="item-icon">⚠</span>
+            <span>Cloud platform data knowledge (AWS, Azure data services, or GCP) — Azure DevOps is listed but does not evidence cloud data platform proficiency.</span>
+          </div>
+
+          <div class="item-row gap">
+            <span class="item-icon">⚠</span>
+            <span>Individual contributor-level dashboard and report delivery examples — Power BI and Tableau are listed but no specific hands-on deliverables are described at the IC level.</span>
+          </div>
+
+          <div class="item-row gap">
+            <span class="item-icon">⚠</span>
+            <span>Specific Agile sprint artefact delivery (user stories, backlog refinement participation) — not explicitly described in the application evidence.</span>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Section 9: Risk Flags -->
+      <div class="card">
+        <div class="card-title">🚩 Risk Flags</div>
+        <div class="item-list">
+
+          <div class="risk-card">
+            <div class="risk-header">
+              <span class="risk-type">Significant Overqualification</span>
+              <span class="badge badge-amber">Medium</span>
+            </div>
+            <div class="risk-description">The candidate is currently Head of Business Analysis at BT Group, managing 22 analysts across 6 programme workstreams with £4.2M budget ownership. The target role is a mid-level BA position with a 3-year experience minimum. The candidate explicitly acknowledges this gap and attributes it to personal reasons for stepping back from management, but the degree of overqualification is substantial and creates a credible retention and flight risk if personal circumstances change.</div>
+          </div>
+
+          <div class="risk-card">
+            <div class="risk-header">
+              <span class="risk-type">Individual Contributor BA Practice Gap</span>
+              <span class="badge badge-amber">Medium</span>
+            </div>
+            <div class="risk-description">The candidate's most recent 7 years (January 2018 to present at BT Group) have been in a governance and people leadership role. Hands-on individual contributor BA work — including direct requirements elicitation, workshop facilitation, dashboard building, and sprint-level Agile artefact delivery — was last primarily evidenced at Senior BA level at Vodafone, which concluded in December 2017. The candidate asserts continued deep skills, but these have been exercised predominantly in a leadership and oversight context for approximately 7 years.</div>
+          </div>
+
+          <div class="risk-card">
+            <div class="risk-header">
+              <span class="risk-type">Unspecified Personal Motivation for Step-Down</span>
+              <span class="badge badge-gray">Low</span>
+            </div>
+            <div class="risk-description">The candidate states personal reasons for seeking to move from a Head of BA role to a mid-level IC position but provides no further explanation. The risk is not the personal reason itself, but the potential instability of this career decision if those circumstances change, which could affect tenure in this role.</div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Section 10: Hiring Considerations -->
+      <div class="card">
+        <div class="card-title">🤔 Hiring Considerations</div>
+        <div class="considerations-text">
+          <p>Before progressing this candidate, the hiring manager may wish to weigh the following factors carefully. The candidate's seniority profile represents a material mismatch with this role: as a current Head of Business Analysis overseeing 22 analysts and a £4.2M budget, the candidate is applying for a position two or more levels below their current standing. While the candidate has proactively acknowledged this and attributed it to a personal decision to return to individual contributor work, the degree of overqualification introduces a credible retention and flight risk that warrants direct exploration at interview.</p>
+          <p>Additionally, the candidate's individual contributor BA delivery skills — particularly hands-on dashboard development, workshop facilitation, sprint artefact delivery, and direct requirements elicitation — have been exercised predominantly in a governance and people leadership context for the past seven years. The depth and currency of their IC-level practice cannot be independently verified from the supplied application evidence, and this warrants specific, example-based questioning during any interview process.</p>
+          <p>The preferred skills in Python, R, and AI/ML are absent, which represents a gap relative to Mr.Robot Ltd's stated technology focus on AI-powered automation. This is not a mandatory gap, but it may be relevant depending on the direction of the role's growth. The screening result is based on partial application data at Medium confidence; a complete profile may clarify some of the unresolved questions around current IC-level practice.</p>
+        </div>
+      </div>
+
+      <!-- Section 11: Recommended Interview Questions -->
+      <div class="card">
+        <div class="card-title">💬 Recommended Interview Questions</div>
+        <div class="question-list">
+
+          <div class="question-item">
+            <div class="question-text">Your application does not reference any experience with Python, R, or AI and machine learning tools. Mr.Robot Ltd operates at the intersection of AI-powered automation and data analysis. Can you walk us through any exposure you have had to these technologies — even at a conceptual or governance level — and how you would approach building that capability if appointed to this role?</div>
+            <span class="probe-badge">Missing Requirement</span>
+          </div>
+
+          <div class="question-item">
+            <div class="question-text">Your resume shows that your most recent 7 years have been at Head of Business Analysis level at BT Group, leading a team of 22 analysts in a governance and practice leadership capacity. This role requires hands-on individual contributor BA delivery — writing requirements, building Power BI reports, facilitating workshops, and contributing directly to sprint ceremonies. Can you give us a specific recent example where you personally delivered at that individual contributor level, rather than overseeing others doing it?</div>
+            <span class="probe-badge">Risk</span>
+          </div>
+
+          <div class="question-item">
+            <div class="question-text">You state that you grew the BT BA practice from 8 to 22 analysts in 4 years. Can you walk us through exactly what your personal contribution to that growth was — specifically the hiring strategy, capability frameworks, and tooling decisions you made — and what measurable improvement in BA output quality or delivery speed resulted from that growth?</div>
+            <span class="probe-badge">Achievement</span>
+          </div>
+
+          <div class="question-item">
+            <div class="question-text">A core responsibility in this role is using SQL to independently extract and interrogate data from databases and warehouses without relying on engineering support, and then translating those findings into Power BI dashboards for non-technical stakeholders. Can you describe a specific recent instance where you personally wrote SQL queries to answer a business question and then built the visualisation that communicated those findings — what the business problem was, what you built, and what decision it enabled?</div>
+            <span class="probe-badge">Responsibility</span>
+          </div>
+
+          <div class="question-item">
+            <div class="question-text">You have stated you are intentionally stepping back from a Head of BA leadership role for personal reasons to focus on individual contributor work. What specifically about Mr.Robot Ltd and this BA role — its focus on AI-powered automation, its fast-growth technology environment, and its analytics-led culture — makes this the right place for that transition, rather than a more traditional mid-level BA role at another organisation?</div>
+            <span class="probe-badge">Motivation</span>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Section 12: Recruiter Action -->
+      <div class="action-card">
+        <div class="action-label">Recruiter Action</div>
+        <div>
+          <span class="kpi-badge" style="background: #f59e0b;">Maybe</span>
+        </div>
+        <div class="action-statement">Hold this candidate for further review if stronger candidates are limited.</div>
+      </div>
+
+      <!-- Section 13: Footer -->
+      <div class="report-footer">
+        <p class="footer-disclaimer">This report is based on structured AI-assisted screening outputs generated from the supplied job description and candidate application evidence. Final hiring decisions remain with the recruiter and hiring manager.</p>
+        <p class="footer-brand">Generated by Demo Screening · AI-Assisted Recruitment Platform</p>
+      </div>
+
+    </div><!-- end content-sections -->
+  </main>
+</div>
+</body>
+</html>
